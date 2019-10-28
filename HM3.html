@@ -14049,7 +14049,7 @@ kpIShIiIpPT/zqNinmyWw1EAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit_generator</span><span class="p">(</span><span class="n">datagen</span><span class="o">.</span><span class="n">flow</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train_vec</span><span class="p">,</span> <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span><span class="p">),</span> <span class="n">epochs</span><span class="o">=</span> <span class="mi">50</span><span class="p">)</span>
@@ -14126,7 +14126,21 @@ Epoch 27/50
 Epoch 28/50
 1563/1563 [==============================] - 159s 102ms/step - loss: 0.3933 - acc: 0.8684
 Epoch 29/50
-1372/1563 [=========================&gt;....] - ETA: 19s - loss: 0.3802 - acc: 0.8734</pre>
+1563/1563 [==============================] - 159s 102ms/step - loss: 0.3810 - acc: 0.8728
+Epoch 30/50
+1563/1563 [==============================] - 159s 102ms/step - loss: 0.3828 - acc: 0.8717
+Epoch 31/50
+1563/1563 [==============================] - 159s 102ms/step - loss: 0.3756 - acc: 0.8752
+Epoch 32/50
+1563/1563 [==============================] - 159s 102ms/step - loss: 0.3683 - acc: 0.8782
+Epoch 33/50
+1563/1563 [==============================] - 159s 102ms/step - loss: 0.3607 - acc: 0.8803
+Epoch 34/50
+1563/1563 [==============================] - 159s 102ms/step - loss: 0.3603 - acc: 0.8802
+Epoch 35/50
+1563/1563 [==============================] - 159s 102ms/step - loss: 0.3595 - acc: 0.8823
+Epoch 36/50
+1112/1563 [====================&gt;.........] - ETA: 45s - loss: 0.3525 - acc: 0.8857Buffered data was truncated after reaching the output size limit.</pre>
 </div>
 </div>
 
@@ -14144,7 +14158,7 @@ Epoch 29/50
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">loss_and_acc</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test_vec</span><span class="p">)</span>
@@ -14153,6 +14167,26 @@ Epoch 29/50
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>10000/10000 [==============================] - 5s 548us/step
+loss = 0.43839008162021637
+accuracy = 0.8577
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
