@@ -13747,7 +13747,7 @@ num_decoder_tokens: 30
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[66]:</div>
+<div class="prompt input_prompt">In&nbsp;[88]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">keras.layers</span> <span class="k">import</span> <span class="n">Input</span><span class="p">,</span> <span class="n">LSTM</span>
@@ -13763,7 +13763,7 @@ num_decoder_tokens: 30
 <span class="c1"># set the Bi-LSTM layer</span>
 <span class="n">encoder_bilstm</span> <span class="o">=</span> <span class="n">Bidirectional</span><span class="p">(</span><span class="n">LSTM</span><span class="p">(</span><span class="n">latent_dim</span><span class="p">,</span> <span class="n">return_state</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
                                   <span class="n">dropout</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;encoder_lstm&#39;</span><span class="p">))</span>
-<span class="n">_</span><span class="p">,</span> <span class="n">forward_h</span><span class="p">,</span> <span class="n">forward_c</span><span class="p">,</span> <span class="n">backward_h</span><span class="p">,</span> <span class="n">backward_c</span> <span class="o">=</span> <span class="n">encoder_bilstm</span><span class="p">(</span><span class="n">encoder_inputs</span><span class="p">)</span>
+<span class="n">encoder_lstm_outputs</span><span class="p">,</span> <span class="n">forward_h</span><span class="p">,</span> <span class="n">forward_c</span><span class="p">,</span> <span class="n">backward_h</span><span class="p">,</span> <span class="n">backward_c</span> <span class="o">=</span> <span class="n">encoder_bilstm</span><span class="p">(</span><span class="n">encoder_inputs</span><span class="p">)</span>
 
 <span class="n">state_h</span> <span class="o">=</span> <span class="n">Concatenate</span><span class="p">()([</span><span class="n">forward_h</span><span class="p">,</span> <span class="n">backward_h</span><span class="p">])</span>
 <span class="n">state_c</span> <span class="o">=</span> <span class="n">Concatenate</span><span class="p">()([</span><span class="n">forward_c</span><span class="p">,</span> <span class="n">backward_c</span><span class="p">])</span>
@@ -13788,7 +13788,7 @@ num_decoder_tokens: 30
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[67]:</div>
+<div class="prompt input_prompt">In&nbsp;[89]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">SVG</span>
@@ -13823,13 +13823,13 @@ Layer (type)                    Output Shape         Param #     Connected to
 ==================================================================================================
 encoder_inputs (InputLayer)     (None, None, 28)     0                                            
 __________________________________________________________________________________________________
-bidirectional_29 (Bidirectional [(None, 512), (None, 583680      encoder_inputs[0][0]             
+bidirectional_30 (Bidirectional [(None, 512), (None, 583680      encoder_inputs[0][0]             
 __________________________________________________________________________________________________
-concatenate_11 (Concatenate)    (None, 512)          0           bidirectional_29[0][1]           
-                                                                 bidirectional_29[0][3]           
+concatenate_13 (Concatenate)    (None, 512)          0           bidirectional_30[0][1]           
+                                                                 bidirectional_30[0][3]           
 __________________________________________________________________________________________________
-concatenate_12 (Concatenate)    (None, 512)          0           bidirectional_29[0][2]           
-                                                                 bidirectional_29[0][4]           
+concatenate_14 (Concatenate)    (None, 512)          0           bidirectional_30[0][2]           
+                                                                 bidirectional_30[0][4]           
 ==================================================================================================
 Total params: 583,680
 Trainable params: 583,680
@@ -13864,7 +13864,7 @@ ________________________________________________________________________________
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[73]:</div>
+<div class="prompt input_prompt">In&nbsp;[90]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">keras.layers</span> <span class="k">import</span> <span class="n">Input</span><span class="p">,</span> <span class="n">LSTM</span><span class="p">,</span> <span class="n">Dense</span>
@@ -13880,15 +13880,6 @@ ________________________________________________________________________________
                     <span class="n">return_state</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dropout</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;decoder_lstm&#39;</span><span class="p">)</span>
 <span class="n">decoder_lstm_outputs</span><span class="p">,</span> <span class="n">state_h</span><span class="p">,</span> <span class="n">state_c</span> <span class="o">=</span> <span class="n">decoder_lstm</span><span class="p">(</span><span class="n">decoder_input_x</span><span class="p">,</span> 
                                                       <span class="n">initial_state</span><span class="o">=</span><span class="p">[</span><span class="n">decoder_input_h</span><span class="p">,</span> <span class="n">decoder_input_c</span><span class="p">])</span>
-
-<span class="c1"># set the dense layer</span>
-<span class="n">decoder_dense</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="n">num_decoder_tokens</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;decoder_dense&#39;</span><span class="p">)</span>
-<span class="n">decoder_outputs</span> <span class="o">=</span> <span class="n">decoder_dense</span><span class="p">(</span><span class="n">decoder_lstm_outputs</span><span class="p">)</span>
-
-<span class="c1"># build the decoder network model</span>
-<span class="n">decoder_model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">decoder_input_x</span><span class="p">,</span> <span class="n">decoder_input_h</span><span class="p">,</span> <span class="n">decoder_input_c</span><span class="p">],</span>
-                      <span class="n">outputs</span><span class="o">=</span><span class="p">[</span><span class="n">decoder_outputs</span><span class="p">,</span> <span class="n">state_h</span><span class="p">,</span> <span class="n">state_c</span><span class="p">],</span>
-                      <span class="n">name</span><span class="o">=</span><span class="s1">&#39;decoder&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13906,7 +13897,7 @@ ________________________________________________________________________________
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[74]:</div>
+<div class="prompt input_prompt">In&nbsp;[91]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">SVG</span>
@@ -13959,6 +13950,49 @@ ________________________________________________________________________________
 </div>
 </div>
 
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Add-Attention-Layer">Add Attention Layer<a class="anchor-link" href="#Add-Attention-Layer">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">encoder_out</span> <span class="o">=</span> <span class="p">[</span><span class="n">state_h</span><span class="p">,</span> <span class="n">state_c</span><span class="p">]</span>
+<span class="n">decoder_out</span> <span class="o">=</span> 
+<span class="n">attn_layer</span> <span class="o">=</span> <span class="n">AttentionLayer</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;attention_layer&#39;</span><span class="p">)</span>
+<span class="n">attn_out</span><span class="p">,</span> <span class="n">attn_states</span> <span class="o">=</span> <span class="n">attn_layer</span><span class="p">([</span><span class="n">encoder_out</span><span class="p">,</span> <span class="n">decoder_out</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># set the dense layer</span>
+<span class="n">decoder_dense</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="n">num_decoder_tokens</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;decoder_dense&#39;</span><span class="p">)</span>
+<span class="n">decoder_outputs</span> <span class="o">=</span> <span class="n">decoder_dense</span><span class="p">(</span><span class="n">decoder_lstm_outputs</span><span class="p">)</span>
+
+<span class="c1"># build the decoder network model</span>
+<span class="n">decoder_model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">decoder_input_x</span><span class="p">,</span> <span class="n">decoder_input_h</span><span class="p">,</span> <span class="n">decoder_input_c</span><span class="p">],</span>
+                      <span class="n">outputs</span><span class="o">=</span><span class="p">[</span><span class="n">decoder_outputs</span><span class="p">,</span> <span class="n">state_h</span><span class="p">,</span> <span class="n">state_c</span><span class="p">],</span>
+                      <span class="n">name</span><span class="o">=</span><span class="s1">&#39;decoder&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
 
@@ -14142,7 +14176,7 @@ shape of decoder_target_data(20000, 56, 30)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[79]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;rmsprop&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">)</span>
@@ -14231,7 +14265,74 @@ Epoch 21/50
 Epoch 22/50
 16000/16000 [==============================] - 94s 6ms/step - loss: 0.2911 - val_loss: 0.4270
 Epoch 23/50
-14464/16000 [==========================&gt;...] - ETA: 8s - loss: 0.2845</pre>
+16000/16000 [==============================] - 96s 6ms/step - loss: 0.2841 - val_loss: 0.4257
+Epoch 24/50
+16000/16000 [==============================] - 92s 6ms/step - loss: 0.2771 - val_loss: 0.4231
+Epoch 25/50
+16000/16000 [==============================] - 94s 6ms/step - loss: 0.2704 - val_loss: 0.4234
+Epoch 26/50
+16000/16000 [==============================] - 90s 6ms/step - loss: 0.2647 - val_loss: 0.4315
+Epoch 27/50
+16000/16000 [==============================] - 90s 6ms/step - loss: 0.2569 - val_loss: 0.4242
+Epoch 28/50
+16000/16000 [==============================] - 91s 6ms/step - loss: 0.2515 - val_loss: 0.4229
+Epoch 29/50
+16000/16000 [==============================] - 91s 6ms/step - loss: 0.2456 - val_loss: 0.4246
+Epoch 30/50
+16000/16000 [==============================] - 90s 6ms/step - loss: 0.2401 - val_loss: 0.4233
+Epoch 31/50
+16000/16000 [==============================] - 87s 5ms/step - loss: 0.2349 - val_loss: 0.4279
+Epoch 32/50
+16000/16000 [==============================] - 91s 6ms/step - loss: 0.2303 - val_loss: 0.4273
+Epoch 33/50
+16000/16000 [==============================] - 96s 6ms/step - loss: 0.2261 - val_loss: 0.4259
+Epoch 34/50
+16000/16000 [==============================] - 92s 6ms/step - loss: 0.2210 - val_loss: 0.4288
+Epoch 35/50
+16000/16000 [==============================] - 89s 6ms/step - loss: 0.2163 - val_loss: 0.4305
+Epoch 36/50
+16000/16000 [==============================] - 89s 6ms/step - loss: 0.2116 - val_loss: 0.4361
+Epoch 37/50
+16000/16000 [==============================] - 89s 6ms/step - loss: 0.2079 - val_loss: 0.4362
+Epoch 38/50
+16000/16000 [==============================] - 93s 6ms/step - loss: 0.2040 - val_loss: 0.4412
+Epoch 39/50
+16000/16000 [==============================] - 88s 5ms/step - loss: 0.1999 - val_loss: 0.4415
+Epoch 40/50
+16000/16000 [==============================] - 87s 5ms/step - loss: 0.1974 - val_loss: 0.4391
+Epoch 41/50
+16000/16000 [==============================] - 89s 6ms/step - loss: 0.1937 - val_loss: 0.4441
+Epoch 42/50
+16000/16000 [==============================] - 90s 6ms/step - loss: 0.1889 - val_loss: 0.4490
+Epoch 43/50
+16000/16000 [==============================] - 88s 5ms/step - loss: 0.1868 - val_loss: 0.4499
+Epoch 44/50
+16000/16000 [==============================] - 90s 6ms/step - loss: 0.1836 - val_loss: 0.4504
+Epoch 45/50
+16000/16000 [==============================] - 88s 6ms/step - loss: 0.1790 - val_loss: 0.4511
+Epoch 46/50
+16000/16000 [==============================] - 89s 6ms/step - loss: 0.1776 - val_loss: 0.4543
+Epoch 47/50
+16000/16000 [==============================] - 89s 6ms/step - loss: 0.1745 - val_loss: 0.4537
+Epoch 48/50
+16000/16000 [==============================] - 89s 6ms/step - loss: 0.1720 - val_loss: 0.4622
+Epoch 49/50
+16000/16000 [==============================] - 89s 6ms/step - loss: 0.1686 - val_loss: 0.4599
+Epoch 50/50
+16000/16000 [==============================] - 89s 6ms/step - loss: 0.1667 - val_loss: 0.4622
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/Users/megzhou/anaconda3/lib/python3.7/site-packages/keras/engine/network.py:877: UserWarning: Layer decoder_lstm was passed non-serializable keyword arguments: {&#39;initial_state&#39;: [&lt;tf.Tensor &#39;encoder_3/concatenate_11/concat:0&#39; shape=(?, 512) dtype=float32&gt;, &lt;tf.Tensor &#39;encoder_3/concatenate_12/concat:0&#39; shape=(?, 512) dtype=float32&gt;]}. They will not be included in the serialized model (and thus will be missing at deserialization time).
+  &#39;. They will not be included &#39;
+</pre>
 </div>
 </div>
 
@@ -14242,7 +14343,7 @@ Epoch 23/50
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="4.-Make-predictions">4. Make predictions<a class="anchor-link" href="#4.-Make-predictions">&#182;</a></h2><h3 id="4.1.-Translate-English-to-XXX">4.1. Translate English to XXX<a class="anchor-link" href="#4.1.-Translate-English-to-XXX">&#182;</a></h3><ol>
+<h2 id="4.-Make-predictions">4. Make predictions<a class="anchor-link" href="#4.-Make-predictions">&#182;</a></h2><h3 id="4.1.-Translate-English-to-French">4.1. Translate English to French<a class="anchor-link" href="#4.1.-Translate-English-to-French">&#182;</a></h3><ol>
 <li>Encoder read a sentence (source language) and output its final states, $h_t$ and $c_t$.</li>
 <li>Take the [star] sign "\t" and the final state $h_t$ and $c_t$ as input and run the decoder.</li>
 <li>Get the new states and predicted probability distribution.</li>
@@ -14255,7 +14356,7 @@ Epoch 23/50
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[80]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Reverse-lookup token index to decode sequences back to something readable.</span>
@@ -14270,7 +14371,7 @@ Epoch 23/50
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[81]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">decode_sequence</span><span class="p">(</span><span class="n">input_seq</span><span class="p">):</span>
@@ -14310,7 +14411,7 @@ Epoch 23/50
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[82]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">seq_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2100</span><span class="p">,</span> <span class="mi">2120</span><span class="p">):</span>
@@ -14320,8 +14421,8 @@ Epoch 23/50
     <span class="n">decoded_sentence</span> <span class="o">=</span> <span class="n">decode_sequence</span><span class="p">(</span><span class="n">input_seq</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;English:       &#39;</span><span class="p">,</span> <span class="n">input_texts</span><span class="p">[</span><span class="n">seq_index</span><span class="p">])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;German (true): &#39;</span><span class="p">,</span> <span class="n">target_texts</span><span class="p">[</span><span class="n">seq_index</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;German (pred): &#39;</span><span class="p">,</span> <span class="n">decoded_sentence</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;French (true): &#39;</span><span class="p">,</span> <span class="n">target_texts</span><span class="p">[</span><span class="n">seq_index</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;French (pred): &#39;</span><span class="p">,</span> <span class="n">decoded_sentence</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 </pre></div>
 
     </div>
@@ -14340,84 +14441,84 @@ Epoch 23/50
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>-
 English:        i am a monk
-German (true):  je suis un moine
-German (pred):  je suis un enfant
+French (true):  je suis un moine
+French (pred):  je suis chanteur
 -
 English:        i am a twin
-German (true):  jai un jumeau
-German (pred):  je suis un enfant
+French (true):  jai un jumeau
+French (pred):  je suis un homme
 -
 English:        i am better
-German (true):  je vais mieux
-German (pred):  je suis contrarie
+French (true):  je vais mieux
+French (pred):  je suis pret
 -
 English:        i am better
-German (true):  je suis mieux
-German (pred):  je suis contrarie
+French (true):  je suis mieux
+French (pred):  je suis pret
 -
 English:        i am coming
-German (true):  jarrive
-German (pred):  je suis marie
+French (true):  jarrive
+French (pred):  je cuisine
 -
 English:        i am joking
-German (true):  je plaisante
-German (pred):  je suis malade
+French (true):  je plaisante
+French (pred):  je flis
 -
 English:        i am single
-German (true):  je suis celibataire
-German (pred):  je suis contrarie
+French (true):  je suis celibataire
+French (pred):  je suis chanceux
 -
 English:        i am taller
-German (true):  je suis plus grand
-German (pred):  je suis prete
+French (true):  je suis plus grand
+French (pred):  je suis faineant
 -
 English:        i apologize
-German (true):  je vous prie de mexcuser
-German (pred):  jai prepare
+French (true):  je vous prie de mexcuser
+French (pred):  je vous agore
 -
 English:        i asked tom
-German (true):  jai demande a tom
-German (pred):  je lai entraine
+French (true):  jai demande a tom
+French (pred):  jai demande a tom
 -
 English:        i assume so
-German (true):  je le suppose
-German (pred):  je lai entraine
+French (true):  je le suppose
+French (pred):  je lai sauve
 -
 English:        i bought it
-German (true):  je lai achete
-German (pred):  je lai confiance
+French (true):  je lai achete
+French (pred):  je lai appele
 -
 English:        i buried it
-German (true):  je lai enterre
-German (pred):  je lai confectionne
+French (true):  je lai enterre
+French (pred):  je lai appelee
 -
 English:        i buried it
-German (true):  je lai enterree
-German (pred):  je lai confectionne
+French (true):  je lai enterree
+French (pred):  je lai appelee
 -
 English:        i burned it
-German (true):  je lai brule
-German (pred):  je lai confectionne
+French (true):  je lai brule
+French (pred):  je lai enterree
 -
 English:        i burned it
-German (true):  je lai brulee
-German (pred):  je lai confectionne
+French (true):  je lai brulee
+French (pred):  je lai enterree
 -
 English:        i buy tapes
-German (true):  jachete des cassettes
-German (pred):  je me suis prete
+French (true):  jachete des cassettes
+French (pred):  je poursede des chaussures
 -
 English:        i came back
-German (true):  je suis revenu
-German (pred):  je suis parti
+French (true):  je suis revenu
+French (pred):  je suis vainarde
 -
 English:        i can dance
-German (true):  je sais danser
-German (pred):  je peux le faire
+French (true):  je sais danser
+French (pred):  je peux marcher
 -
 English:        i can do it
-German (true):  je peux le faire
-German (pred):  je peux le faire
+French (true):  je peux le faire
+French (pred):  je peux y arriver
 </pre>
 </div>
 </div>
@@ -14440,7 +14541,7 @@ German (pred):  je peux le faire
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[70]:</div>
+<div class="prompt input_prompt">In&nbsp;[83]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">input_sentence</span> <span class="o">=</span> <span class="s1">&#39;why is that&#39;</span>
@@ -14471,7 +14572,7 @@ German (pred):  je peux le faire
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>source sentence is: why is that
-translated sentence is: pourquoi estce qui sest passe
+translated sentence is: pourquoi cela
 </pre>
 </div>
 </div>
@@ -14503,7 +14604,7 @@ translated sentence is: pourquoi estce qui sest passe
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[377]:</div>
+<div class="prompt input_prompt">In&nbsp;[84]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.translate.bleu_score</span> <span class="k">import</span> <span class="n">sentence_bleu</span>
@@ -14525,7 +14626,7 @@ translated sentence is: pourquoi estce qui sest passe
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[324]:</div>
+<div class="prompt input_prompt">In&nbsp;[85]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">decoded_texts</span> <span class="o">=</span> <span class="p">[]</span>
@@ -14543,7 +14644,7 @@ translated sentence is: pourquoi estce qui sest passe
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[333]:</div>
+<div class="prompt input_prompt">In&nbsp;[86]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">y_train</span> <span class="o">=</span> <span class="n">decoded_texts</span><span class="p">[</span><span class="n">train_indices</span><span class="p">,]</span>
@@ -14557,7 +14658,7 @@ translated sentence is: pourquoi estce qui sest passe
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[376]:</div>
+<div class="prompt input_prompt">In&nbsp;[87]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">score_sum</span> <span class="o">=</span> <span class="mf">0.0</span>
@@ -14581,8 +14682,36 @@ translated sentence is: pourquoi estce qui sest passe
     <div class="prompt"></div>
 
 
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/Users/megzhou/anaconda3/lib/python3.7/site-packages/nltk/translate/bleu_score.py:523: UserWarning: 
+The hypothesis contains 0 counts of 2-gram overlaps.
+Therefore the BLEU score evaluates to 0, independently of
+how many N-gram overlaps of lower order it contains.
+Consider using lower n-gram order or use SmoothingFunction()
+  warnings.warn(_msg)
+/Users/megzhou/anaconda3/lib/python3.7/site-packages/nltk/translate/bleu_score.py:523: UserWarning: 
+The hypothesis contains 0 counts of 3-gram overlaps.
+Therefore the BLEU score evaluates to 0, independently of
+how many N-gram overlaps of lower order it contains.
+Consider using lower n-gram order or use SmoothingFunction()
+  warnings.warn(_msg)
+/Users/megzhou/anaconda3/lib/python3.7/site-packages/nltk/translate/bleu_score.py:523: UserWarning: 
+The hypothesis contains 0 counts of 4-gram overlaps.
+Therefore the BLEU score evaluates to 0, independently of
+how many N-gram overlaps of lower order it contains.
+Consider using lower n-gram order or use SmoothingFunction()
+  warnings.warn(_msg)
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>0.30783521078733617
+<pre>0.47748435037915354
 </pre>
 </div>
 </div>
