@@ -14312,7 +14312,7 @@ Epoch 50/50
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="4.-Make-predictions">4. Make predictions<a class="anchor-link" href="#4.-Make-predictions">&#182;</a></h2><h3 id="4.1.-Translate-English-to-XXX">4.1. Translate English to XXX<a class="anchor-link" href="#4.1.-Translate-English-to-XXX">&#182;</a></h3><ol>
+<h2 id="4.-Make-predictions">4. Make predictions<a class="anchor-link" href="#4.-Make-predictions">&#182;</a></h2><h3 id="4.1.-Translate-English-to-French">4.1. Translate English to French<a class="anchor-link" href="#4.1.-Translate-English-to-French">&#182;</a></h3><ol>
 <li>Encoder read a sentence (source language) and output its final states, $h_t$ and $c_t$.</li>
 <li>Take the [star] sign "\t" and the final state $h_t$ and $c_t$ as input and run the decoder.</li>
 <li>Get the new states and predicted probability distribution.</li>
@@ -14380,7 +14380,7 @@ Epoch 50/50
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[378]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">seq_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2100</span><span class="p">,</span> <span class="mi">2120</span><span class="p">):</span>
@@ -14390,8 +14390,8 @@ Epoch 50/50
     <span class="n">decoded_sentence</span> <span class="o">=</span> <span class="n">decode_sequence</span><span class="p">(</span><span class="n">input_seq</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;English:       &#39;</span><span class="p">,</span> <span class="n">input_texts</span><span class="p">[</span><span class="n">seq_index</span><span class="p">])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;German (true): &#39;</span><span class="p">,</span> <span class="n">target_texts</span><span class="p">[</span><span class="n">seq_index</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;German (pred): &#39;</span><span class="p">,</span> <span class="n">decoded_sentence</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;French (true): &#39;</span><span class="p">,</span> <span class="n">target_texts</span><span class="p">[</span><span class="n">seq_index</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;French (pred): &#39;</span><span class="p">,</span> <span class="n">decoded_sentence</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 </pre></div>
 
     </div>
@@ -14410,84 +14410,84 @@ Epoch 50/50
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>-
 English:        i am a monk
-German (true):  je suis un moine
-German (pred):  je suis un enfant
+French (true):  je suis un moine
+French (pred):  je suis un enfant
 -
 English:        i am a twin
-German (true):  jai un jumeau
-German (pred):  je suis un enfant
+French (true):  jai un jumeau
+French (pred):  je suis un enfant
 -
 English:        i am better
-German (true):  je vais mieux
-German (pred):  je suis contrarie
+French (true):  je vais mieux
+French (pred):  je suis contrarie
 -
 English:        i am better
-German (true):  je suis mieux
-German (pred):  je suis contrarie
+French (true):  je suis mieux
+French (pred):  je suis contrarie
 -
 English:        i am coming
-German (true):  jarrive
-German (pred):  je suis marie
+French (true):  jarrive
+French (pred):  je suis marie
 -
 English:        i am joking
-German (true):  je plaisante
-German (pred):  je suis malade
+French (true):  je plaisante
+French (pred):  je suis malade
 -
 English:        i am single
-German (true):  je suis celibataire
-German (pred):  je suis contrarie
+French (true):  je suis celibataire
+French (pred):  je suis contrarie
 -
 English:        i am taller
-German (true):  je suis plus grand
-German (pred):  je suis prete
+French (true):  je suis plus grand
+French (pred):  je suis prete
 -
 English:        i apologize
-German (true):  je vous prie de mexcuser
-German (pred):  jai prepare
+French (true):  je vous prie de mexcuser
+French (pred):  jai prepare
 -
 English:        i asked tom
-German (true):  jai demande a tom
-German (pred):  je lai entraine
+French (true):  jai demande a tom
+French (pred):  je lai entraine
 -
 English:        i assume so
-German (true):  je le suppose
-German (pred):  je lai entraine
+French (true):  je le suppose
+French (pred):  je lai entraine
 -
 English:        i bought it
-German (true):  je lai achete
-German (pred):  je lai confiance
+French (true):  je lai achete
+French (pred):  je lai confiance
 -
 English:        i buried it
-German (true):  je lai enterre
-German (pred):  je lai confectionne
+French (true):  je lai enterre
+French (pred):  je lai confectionne
 -
 English:        i buried it
-German (true):  je lai enterree
-German (pred):  je lai confectionne
+French (true):  je lai enterree
+French (pred):  je lai confectionne
 -
 English:        i burned it
-German (true):  je lai brule
-German (pred):  je lai confectionne
+French (true):  je lai brule
+French (pred):  je lai confectionne
 -
 English:        i burned it
-German (true):  je lai brulee
-German (pred):  je lai confectionne
+French (true):  je lai brulee
+French (pred):  je lai confectionne
 -
 English:        i buy tapes
-German (true):  jachete des cassettes
-German (pred):  je me suis prete
+French (true):  jachete des cassettes
+French (pred):  je me suis prete
 -
 English:        i came back
-German (true):  je suis revenu
-German (pred):  je suis parti
+French (true):  je suis revenu
+French (pred):  je suis parti
 -
 English:        i can dance
-German (true):  je sais danser
-German (pred):  je peux le faire
+French (true):  je sais danser
+French (pred):  je peux le faire
 -
 English:        i can do it
-German (true):  je peux le faire
-German (pred):  je peux le faire
+French (true):  je peux le faire
+French (pred):  je peux le faire
 </pre>
 </div>
 </div>
